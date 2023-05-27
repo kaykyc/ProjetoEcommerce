@@ -1,4 +1,5 @@
-from typing import Optional, Union
+from operator import itemgetter
+from typing import ItemsView, Optional, Union
 
 from fastapi import Cookie, FastAPI, Header, Response
 
@@ -8,28 +9,18 @@ class Produto (BaseModel):
     cod: int
     descricao:str 
     preco:float
+    qnt: int
 
 app = FastAPI()
 
+banco_de_dados = []
 
-@app.get("/")
-def read_root(user_agent: Optional[str] = Header(123)):
-    return {"Welcome to your store,"}
-    return{"user agente": user_agent}
+@app.post("/item")
+def add_item(item: Produto):
+    banco_de_dados.append(item)
+    return Produto
 
-@app.get("/cookie")
-def cookie(response: Response):
-    response.set_cookie(key="meucookie", value="135566")
-    return {"cookie": True }
+@app.get("/item")
+def list_item():
+    return banco_de_dados
 
-@app.get("/get-cookie")
-def get_cookie(meucookie: Optional[str] = Cookie(None)):
-    return{"Cookie": meucookie}
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int,p: bool , q: Optional[str] = None):
-    return {"item_id": item_id, "q": q, "p":p}
-
-@app.post ("/Produto")
-def add_item(novo_produto: Produto):
-    return novo_produto
