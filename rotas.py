@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from controllers import produtos_controllers as produtos
+from controller import produtos_controller as produtos
 
 router = APIRouter ()
 

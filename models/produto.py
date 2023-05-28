@@ -1,4 +1,5 @@
 import ormar
+from sqlalchemy.sql.expression import table
 from config import database, metadata
 
 class Produto(ormar.Model):
