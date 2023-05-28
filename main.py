@@ -4,5 +4,5 @@ from rotas import router
 
 app = FastAPI()
 
-app.include_router(router, prefix='')
+app.include_router(router, prefix="")
 
